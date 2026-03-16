@@ -1,0 +1,1385 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Toolkit HO.RE.CA. — Taranto 2026 | Giochi del Mediterraneo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --navy:       #0d1f3c;
+      --navy-mid:   #162d54;
+      --sea:        #1a5f8a;
+      --gold:       #c9a227;
+      --gold-light: #f0d060;
+      --terra:      #c75b2a;
+      --sage:       #6b8f71;
+      --sage-light: #a8c5ac;
+      --cream:      #f8f4ec;
+      --cream-warm: #f0ead8;
+      --text-dark:  #1a1a2e;
+      --text-mid:   #3d4d6a;
+      --text-light: #8a99b0;
+      --white:      #ffffff;
+      --transition: 0.35s cubic-bezier(.4,0,.2,1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream);
+      color: var(--text-dark);
+      overflow-x: hidden;
+    }
+
+    /* ── SCROLLBAR ── */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--cream-warm); }
+    ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 3px; }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 999;
+      background: rgba(13,31,60,0.96);
+      backdrop-filter: blur(12px);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 2.5rem;
+      height: 64px;
+      border-bottom: 1px solid rgba(201,162,39,0.25);
+    }
+    .nav-brand {
+      display: flex; align-items: center; gap: 0.75rem;
+    }
+    .nav-brand-dot {
+      width: 10px; height: 10px;
+      background: var(--gold);
+      border-radius: 50%;
+      box-shadow: 0 0 8px var(--gold);
+    }
+    .nav-brand span {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem; font-weight: 600;
+      color: var(--white); letter-spacing: 0.04em;
+    }
+    .nav-links {
+      display: flex; gap: 0.25rem; list-style: none;
+    }
+    .nav-links a {
+      color: rgba(255,255,255,0.7);
+      text-decoration: none;
+      font-size: 0.8rem; font-weight: 500;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      padding: 0.4rem 0.85rem;
+      border-radius: 4px;
+      transition: var(--transition);
+    }
+    .nav-links a:hover {
+      color: var(--gold);
+      background: rgba(201,162,39,0.1);
+    }
+    .nav-badge {
+      background: var(--gold);
+      color: var(--navy);
+      font-size: 0.72rem; font-weight: 600;
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+      letter-spacing: 0.05em;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      background: linear-gradient(150deg, var(--navy) 0%, var(--navy-mid) 40%, #1a3a5c 70%, #0f2a45 100%);
+      position: relative;
+      display: flex; align-items: center;
+      overflow: hidden;
+      padding: 6rem 0 4rem;
+    }
+    .hero-bg-pattern {
+      position: absolute; inset: 0;
+      background-image:
+        radial-gradient(circle at 20% 80%, rgba(26,95,138,0.35) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(201,162,39,0.15) 0%, transparent 40%),
+        radial-gradient(circle at 60% 60%, rgba(107,143,113,0.1) 0%, transparent 35%);
+    }
+    .hero-grid-overlay {
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(201,162,39,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(201,162,39,0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+    .hero-content {
+      position: relative; z-index: 2;
+      max-width: 1200px; margin: 0 auto; padding: 0 2.5rem;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center;
+    }
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      background: rgba(201,162,39,0.12);
+      border: 1px solid rgba(201,162,39,0.3);
+      border-radius: 2px;
+      padding: 0.35rem 0.9rem;
+      margin-bottom: 1.5rem;
+    }
+    .hero-eyebrow span {
+      font-size: 0.72rem; font-weight: 600;
+      color: var(--gold-light); letter-spacing: 0.12em; text-transform: uppercase;
+    }
+    .hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.8rem, 5vw, 4.2rem);
+      font-weight: 700; line-height: 1.05;
+      color: var(--white);
+      margin-bottom: 1.25rem;
+    }
+    .hero-title em {
+      font-style: italic; color: var(--gold-light);
+    }
+    .hero-subtitle {
+      font-size: 1.05rem; font-weight: 300; line-height: 1.7;
+      color: rgba(255,255,255,0.65);
+      margin-bottom: 2.5rem; max-width: 480px;
+    }
+    .hero-ctas {
+      display: flex; gap: 1rem; flex-wrap: wrap;
+    }
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.85rem 1.75rem;
+      border-radius: 4px;
+      font-size: 0.88rem; font-weight: 600;
+      letter-spacing: 0.04em;
+      cursor: pointer; border: none;
+      text-decoration: none;
+      transition: var(--transition);
+    }
+    .btn-gold {
+      background: var(--gold); color: var(--navy);
+    }
+    .btn-gold:hover { background: var(--gold-light); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(201,162,39,0.4); }
+    .btn-outline {
+      background: transparent; color: var(--white);
+      border: 1px solid rgba(255,255,255,0.3);
+    }
+    .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+
+    .hero-stats {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;
+    }
+    .stat-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 12px;
+      padding: 1.75rem;
+      backdrop-filter: blur(8px);
+      transition: var(--transition);
+    }
+    .stat-card:hover {
+      background: rgba(255,255,255,0.08);
+      border-color: rgba(201,162,39,0.35);
+      transform: translateY(-4px);
+    }
+    .stat-card:first-child {
+      grid-column: 1 / -1;
+      background: rgba(201,162,39,0.1);
+      border-color: rgba(201,162,39,0.3);
+    }
+    .stat-number {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3.2rem; font-weight: 700;
+      color: var(--gold-light); line-height: 1;
+      margin-bottom: 0.35rem;
+    }
+    .stat-label {
+      font-size: 0.85rem; font-weight: 400;
+      color: rgba(255,255,255,0.6); line-height: 1.4;
+    }
+    .stat-tag {
+      display: inline-block;
+      font-size: 0.68rem; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--gold);
+      background: rgba(201,162,39,0.15);
+      padding: 0.2rem 0.5rem; border-radius: 2px;
+      margin-bottom: 0.75rem;
+    }
+
+    /* ── WAVE ── */
+    .wave-divider {
+      margin-top: -2px;
+      line-height: 0;
+    }
+    .wave-divider svg { display: block; width: 100%; }
+
+    /* ── SECTIONS ── */
+    section { padding: 6rem 0; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 2.5rem; }
+
+    .section-label {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      font-size: 0.72rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 0.75rem;
+    }
+    .section-label::before {
+      content: ''; display: block;
+      width: 24px; height: 2px; background: var(--gold);
+    }
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      font-weight: 700; line-height: 1.1;
+      color: var(--navy); margin-bottom: 1rem;
+    }
+    .section-desc {
+      font-size: 1.05rem; font-weight: 300; line-height: 1.75;
+      color: var(--text-mid); max-width: 640px;
+    }
+
+    /* ── QUICK-NAV CARDS ── */
+    #overview { background: var(--white); }
+    .overview-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.25rem; margin-top: 3rem;
+    }
+    .topic-card {
+      background: var(--cream);
+      border: 1px solid rgba(13,31,60,0.08);
+      border-radius: 12px;
+      padding: 1.75rem 1.5rem;
+      text-decoration: none;
+      transition: var(--transition);
+      cursor: pointer; display: block;
+    }
+    .topic-card:hover {
+      background: var(--navy);
+      border-color: var(--navy);
+      transform: translateY(-6px);
+      box-shadow: 0 16px 40px rgba(13,31,60,0.18);
+    }
+    .topic-card:hover .topic-title { color: var(--white); }
+    .topic-card:hover .topic-desc { color: rgba(255,255,255,0.6); }
+    .topic-card:hover .topic-icon-wrap { background: rgba(255,255,255,0.1); }
+    .topic-icon-wrap {
+      width: 52px; height: 52px;
+      background: rgba(13,31,60,0.06);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem; margin-bottom: 1.25rem;
+      transition: var(--transition);
+    }
+    .topic-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem; font-weight: 700;
+      color: var(--navy); margin-bottom: 0.5rem;
+      transition: var(--transition);
+    }
+    .topic-desc {
+      font-size: 0.82rem; line-height: 1.5;
+      color: var(--text-mid);
+      transition: var(--transition);
+    }
+
+    /* ── HALAL SECTION ── */
+    #halal { background: var(--navy); }
+    #halal .section-title { color: var(--white); }
+    #halal .section-desc { color: rgba(255,255,255,0.6); }
+    .halal-grid {
+      display: grid; grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem; margin-top: 3.5rem;
+    }
+    .halal-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 14px;
+      padding: 2rem;
+      transition: var(--transition);
+    }
+    .halal-card:hover {
+      background: rgba(201,162,39,0.08);
+      border-color: rgba(201,162,39,0.35);
+    }
+    .halal-card-icon {
+      width: 44px; height: 44px;
+      background: rgba(201,162,39,0.15);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem; margin-bottom: 1.2rem;
+    }
+    .halal-card h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem; font-weight: 600;
+      color: var(--gold-light); margin-bottom: 0.6rem;
+    }
+    .halal-card p {
+      font-size: 0.88rem; line-height: 1.65;
+      color: rgba(255,255,255,0.6);
+    }
+    .halal-banner {
+      margin-top: 2.5rem;
+      background: rgba(201,162,39,0.1);
+      border: 1px solid rgba(201,162,39,0.25);
+      border-radius: 12px;
+      padding: 1.5rem 2rem;
+      display: flex; align-items: flex-start; gap: 1rem;
+    }
+    .halal-banner-icon { font-size: 1.4rem; flex-shrink: 0; margin-top: 0.1rem; }
+    .halal-banner p {
+      font-size: 0.88rem; line-height: 1.6;
+      color: rgba(255,255,255,0.7); font-style: italic;
+    }
+
+    /* ── CROSS-CONTAMINATION ── */
+    #contamination { background: var(--cream-warm); }
+    .steps-row {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem; margin-top: 3.5rem;
+    }
+    .step-card {
+      background: var(--white);
+      border-radius: 14px;
+      padding: 2rem 1.75rem;
+      position: relative;
+      border: 1px solid rgba(13,31,60,0.07);
+      transition: var(--transition);
+    }
+    .step-card:hover {
+      box-shadow: 0 12px 40px rgba(13,31,60,0.1);
+      transform: translateY(-4px);
+    }
+    .step-num {
+      position: absolute; top: 1.5rem; right: 1.75rem;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3.5rem; font-weight: 700;
+      color: rgba(13,31,60,0.04); line-height: 1;
+    }
+    .step-icon {
+      width: 50px; height: 50px;
+      background: linear-gradient(135deg, var(--sea), var(--navy));
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem; margin-bottom: 1.25rem;
+    }
+    .step-card h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem; font-weight: 700;
+      color: var(--navy); margin-bottom: 0.5rem;
+    }
+    .step-card p { font-size: 0.85rem; line-height: 1.6; color: var(--text-mid); }
+
+    /* ── ORARI ── */
+    #orari { background: var(--white); }
+    .orari-layout {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 4rem; margin-top: 3.5rem; align-items: start;
+    }
+    .orari-visual {
+      display: flex; flex-direction: column; gap: 1.25rem;
+    }
+    .orario-item {
+      display: flex; align-items: center; gap: 1.25rem;
+      padding: 1.5rem;
+      background: var(--cream);
+      border-radius: 12px;
+      border-left: 4px solid transparent;
+      transition: var(--transition);
+    }
+    .orario-item:nth-child(1) { border-color: var(--sage); }
+    .orario-item:nth-child(2) { border-color: var(--terra); }
+    .orario-item:nth-child(3) { border-color: var(--gold); }
+    .orario-item:hover { transform: translateX(6px); }
+    .orario-icon { font-size: 1.8rem; flex-shrink: 0; }
+    .orario-time {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.8rem; font-weight: 700;
+      color: var(--navy); line-height: 1;
+    }
+    .orario-label { font-size: 0.82rem; color: var(--text-mid); margin-top: 0.2rem; }
+    .orari-note {
+      background: var(--navy);
+      border-radius: 12px;
+      padding: 2.5rem;
+      color: var(--white);
+    }
+    .orari-note h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem; margin-bottom: 1rem;
+      color: var(--gold-light);
+    }
+    .orari-note ul { list-style: none; display: flex; flex-direction: column; gap: 0.75rem; }
+    .orari-note li {
+      display: flex; gap: 0.75rem; align-items: flex-start;
+      font-size: 0.87rem; line-height: 1.55;
+      color: rgba(255,255,255,0.7);
+    }
+    .orari-note li::before {
+      content: '→'; color: var(--gold); font-size: 0.85rem; flex-shrink: 0; margin-top: 0.05rem;
+    }
+
+    /* ── VEGETARIANO / VEGANO ── */
+    #veg { background: linear-gradient(170deg, #f0ead8 0%, #e8f0e9 100%); }
+    .veg-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.25rem; margin-top: 3.5rem;
+    }
+    .veg-card {
+      background: var(--white);
+      border-radius: 14px;
+      padding: 2rem;
+      border-top: 4px solid var(--sage);
+      transition: var(--transition);
+    }
+    .veg-card:nth-child(even) { border-color: var(--terra); }
+    .veg-card:hover {
+      box-shadow: 0 14px 40px rgba(107,143,113,0.18);
+      transform: translateY(-4px);
+    }
+    .veg-card-icon { font-size: 2rem; margin-bottom: 1rem; display: block; }
+    .veg-card h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem; font-weight: 700;
+      color: var(--navy); margin-bottom: 0.6rem;
+    }
+    .veg-card p { font-size: 0.85rem; line-height: 1.65; color: var(--text-mid); }
+
+    /* ── BEVANDE ── */
+    #bevande { background: var(--navy-mid); }
+    #bevande .section-title { color: var(--white); }
+    #bevande .section-desc { color: rgba(255,255,255,0.6); }
+    .bev-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem; margin-top: 3.5rem;
+    }
+    .bev-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 14px;
+      padding: 2rem;
+      text-align: center;
+      transition: var(--transition);
+    }
+    .bev-card:hover {
+      background: rgba(107,143,113,0.12);
+      border-color: var(--sage-light);
+      transform: translateY(-4px);
+    }
+    .bev-icon {
+      width: 64px; height: 64px;
+      border-radius: 50%;
+      background: rgba(107,143,113,0.2);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.75rem; margin: 0 auto 1.25rem;
+    }
+    .bev-card h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem; color: var(--white); margin-bottom: 0.6rem;
+    }
+    .bev-card p { font-size: 0.83rem; color: rgba(255,255,255,0.55); line-height: 1.6; }
+
+    /* ── PERSONALE ── */
+    #personale { background: var(--cream); }
+    .staff-layout {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 4rem; margin-top: 3.5rem; align-items: start;
+    }
+    .staff-list { display: flex; flex-direction: column; gap: 1.25rem; }
+    .staff-item {
+      display: flex; gap: 1.25rem; align-items: flex-start;
+      padding: 1.5rem;
+      background: var(--white);
+      border-radius: 12px;
+      transition: var(--transition);
+    }
+    .staff-item:hover { box-shadow: 0 8px 28px rgba(13,31,60,0.1); transform: translateX(4px); }
+    .staff-item-icon {
+      width: 46px; height: 46px; flex-shrink: 0;
+      background: var(--navy);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.25rem;
+    }
+    .staff-item h4 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem; font-weight: 700;
+      color: var(--navy); margin-bottom: 0.35rem;
+    }
+    .staff-item p { font-size: 0.83rem; color: var(--text-mid); line-height: 1.55; }
+    .comm-box {
+      background: var(--navy);
+      border-radius: 16px;
+      padding: 2.5rem;
+    }
+    .comm-box h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.6rem; color: var(--gold-light);
+      margin-bottom: 1.5rem;
+    }
+    .comm-item {
+      padding: 1.25rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .comm-item:last-child { border: none; padding-bottom: 0; }
+    .comm-tag {
+      display: inline-block;
+      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.2rem 0.6rem; border-radius: 3px;
+      margin-bottom: 0.5rem;
+    }
+    .tag-ok { background: rgba(107,143,113,0.2); color: var(--sage-light); }
+    .tag-no { background: rgba(199,91,42,0.2); color: #e8876a; }
+    .comm-item p { font-size: 0.84rem; color: rgba(255,255,255,0.65); line-height: 1.55; }
+
+    /* ── CORSI ── */
+    #corsi { background: linear-gradient(160deg, var(--navy) 0%, #102040 100%); }
+    #corsi .section-title { color: var(--white); }
+    #corsi .section-desc { color: rgba(255,255,255,0.6); }
+    .corsi-layout {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 2.5rem; margin-top: 3.5rem;
+    }
+    .corso-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(201,162,39,0.2);
+      border-radius: 16px;
+      padding: 2.5rem;
+      transition: var(--transition);
+    }
+    .corso-card:hover {
+      background: rgba(201,162,39,0.07);
+      border-color: rgba(201,162,39,0.45);
+      transform: translateY(-4px);
+    }
+    .corso-tag {
+      display: inline-block;
+      background: rgba(201,162,39,0.15);
+      color: var(--gold-light);
+      font-size: 0.72rem; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 0.3rem 0.8rem; border-radius: 4px;
+      margin-bottom: 1.25rem;
+    }
+    .corso-card h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.6rem; color: var(--white);
+      margin-bottom: 0.75rem;
+    }
+    .corso-card p { font-size: 0.87rem; color: rgba(255,255,255,0.6); margin-bottom: 1.5rem; line-height: 1.6; }
+    .corso-meta {
+      display: flex; flex-direction: column; gap: 0.65rem;
+    }
+    .corso-meta-item {
+      display: flex; align-items: center; gap: 0.65rem;
+      font-size: 0.83rem; color: rgba(255,255,255,0.55);
+    }
+    .corso-meta-item .m-icon { font-size: 0.95rem; }
+    .corso-meta-item strong { color: var(--gold-light); font-weight: 500; }
+    .vetrofania-box {
+      grid-column: 1 / -1;
+      background: linear-gradient(135deg, rgba(201,162,39,0.15) 0%, rgba(107,143,113,0.1) 100%);
+      border: 1px solid rgba(201,162,39,0.3);
+      border-radius: 16px;
+      padding: 2.5rem;
+      display: flex; align-items: center; gap: 2.5rem;
+    }
+    .vetrofania-icon { font-size: 4rem; flex-shrink: 0; }
+    .vetrofania-box h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.75rem; color: var(--gold-light);
+      margin-bottom: 0.75rem;
+    }
+    .vetrofania-box p { font-size: 0.88rem; color: rgba(255,255,255,0.65); line-height: 1.65; }
+    .vetrofania-reqs {
+      display: flex; gap: 0.75rem; flex-wrap: wrap; margin-top: 1.25rem;
+    }
+    .req-pill {
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 20px;
+      padding: 0.35rem 0.9rem;
+      font-size: 0.78rem; color: rgba(255,255,255,0.65);
+      display: flex; align-items: center; gap: 0.4rem;
+    }
+    .req-pill::before { content: '✓'; color: var(--sage-light); font-weight: 700; }
+
+    /* ── CHECKLIST ── */
+    #checklist { background: var(--white); }
+    .checklist-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem; margin-top: 3.5rem;
+    }
+    .checklist-group {
+      background: var(--cream);
+      border-radius: 14px;
+      padding: 2rem;
+    }
+    .checklist-group h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem; font-weight: 700;
+      color: var(--navy); margin-bottom: 1.25rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 2px solid rgba(13,31,60,0.08);
+    }
+    .checklist-group h3 span { margin-right: 0.5rem; }
+    .check-list { list-style: none; display: flex; flex-direction: column; gap: 0.65rem; }
+    .check-item {
+      display: flex; align-items: flex-start; gap: 0.75rem;
+      font-size: 0.85rem; line-height: 1.55; color: var(--text-mid);
+      padding: 0.6rem 0.75rem;
+      border-radius: 6px;
+      transition: var(--transition);
+      cursor: default;
+    }
+    .check-item:hover { background: rgba(13,31,60,0.04); }
+    .check-item::before {
+      content: '○';
+      color: var(--text-light); font-size: 0.75rem;
+      flex-shrink: 0; margin-top: 0.15rem;
+      transition: var(--transition);
+    }
+    .check-item:hover::before { content: '●'; color: var(--sea); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--navy);
+      padding: 4rem 0 2.5rem;
+      border-top: 1px solid rgba(201,162,39,0.2);
+    }
+    .footer-inner {
+      max-width: 1200px; margin: 0 auto; padding: 0 2.5rem;
+    }
+    .footer-top {
+      display: grid; grid-template-columns: 2fr 1fr 1fr;
+      gap: 3rem; margin-bottom: 3rem;
+    }
+    .footer-brand h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem; color: var(--white); margin-bottom: 0.75rem;
+    }
+    .footer-brand p { font-size: 0.85rem; color: rgba(255,255,255,0.5); line-height: 1.65; }
+    .footer-brand .footer-badges {
+      display: flex; gap: 0.75rem; margin-top: 1.25rem; flex-wrap: wrap;
+    }
+    .f-badge {
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 6px;
+      padding: 0.4rem 0.9rem;
+      font-size: 0.75rem; color: rgba(255,255,255,0.55);
+    }
+    .footer-col h4 {
+      font-size: 0.75rem; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--gold);
+      margin-bottom: 1.25rem;
+    }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+    .footer-col a {
+      font-size: 0.85rem; color: rgba(255,255,255,0.5);
+      text-decoration: none; transition: var(--transition);
+    }
+    .footer-col a:hover { color: var(--gold); }
+    .footer-bottom {
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 1rem;
+    }
+    .footer-bottom p { font-size: 0.78rem; color: rgba(255,255,255,0.3); }
+
+    /* ── TOOLTIP PILLS ── */
+    .pill {
+      display: inline-block;
+      background: rgba(107,143,113,0.12);
+      color: var(--sage);
+      border: 1px solid rgba(107,143,113,0.25);
+      border-radius: 12px;
+      padding: 0.25rem 0.7rem;
+      font-size: 0.75rem; font-weight: 600;
+      margin: 0.15rem;
+    }
+    .pill-red {
+      background: rgba(199,91,42,0.1);
+      color: var(--terra);
+      border-color: rgba(199,91,42,0.2);
+    }
+
+    /* ── ANNOUNCE BANNER ── */
+    .announce {
+      background: linear-gradient(90deg, var(--gold) 0%, #e8b820 100%);
+      padding: 0.75rem 2.5rem;
+      text-align: center;
+      font-size: 0.82rem; font-weight: 600;
+      color: var(--navy);
+      letter-spacing: 0.04em;
+      position: sticky; top: 64px; z-index: 990;
+    }
+    .announce a { color: var(--navy); text-decoration: underline; }
+
+    /* ── SCROLL INDICATOR ── */
+    #scroll-progress {
+      position: fixed; top: 0; left: 0; height: 3px;
+      background: linear-gradient(90deg, var(--gold), var(--terra));
+      z-index: 1001; width: 0; transition: width 0.1s linear;
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .anim { opacity: 0; animation: fadeUp 0.65s forwards; }
+    .anim-d1 { animation-delay: 0.1s; }
+    .anim-d2 { animation-delay: 0.2s; }
+    .anim-d3 { animation-delay: 0.3s; }
+    .anim-d4 { animation-delay: 0.4s; }
+    .anim-d5 { animation-delay: 0.5s; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .hero-content { grid-template-columns: 1fr; gap: 3rem; }
+      .hero-stats { display: none; }
+      .halal-grid, .orari-layout, .staff-layout, .corsi-layout { grid-template-columns: 1fr; }
+      .footer-top { grid-template-columns: 1fr; gap: 2rem; }
+      nav { padding: 0 1.25rem; }
+      .nav-links { display: none; }
+      .vetrofania-box { flex-direction: column; gap: 1.5rem; }
+      .container { padding: 0 1.25rem; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="scroll-progress"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-brand">
+    <div class="nav-brand-dot"></div>
+    <span>Toolkit HO.RE.CA. · Taranto 2026</span>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#overview">Panoramica</a></li>
+    <li><a href="#halal">Halal</a></li>
+    <li><a href="#veg">Veg & Vegano</a></li>
+    <li><a href="#orari">Orari</a></li>
+    <li><a href="#bevande">Bevande</a></li>
+    <li><a href="#personale">Personale</a></li>
+    <li><a href="#corsi">Corsi</a></li>
+    <li><a href="#checklist">Checklist</a></li>
+  </ul>
+  <span class="nav-badge">XX Edizione</span>
+</nav>
+
+<!-- ANNOUNCE -->
+<div class="announce" style="margin-top:64px">
+  📢 Corsi di formazione Halal-Friendly gratuiti — a cura di <strong>FIC Unione Cuochi Regione Puglia</strong> &nbsp;|&nbsp; Iscrizioni: contattare il referente del Comune di Taranto
+</div>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-bg-pattern"></div>
+  <div class="hero-grid-overlay"></div>
+  <div class="hero-content">
+    <div>
+      <div class="hero-eyebrow anim anim-d1">
+        <span>Giochi del Mediterraneo · Taranto 2026</span>
+      </div>
+      <h1 class="hero-title anim anim-d2">
+        Toolkit per<br/><em>Ristoratori</em><br/>& HO.RE.CA.
+      </h1>
+      <p class="hero-subtitle anim anim-d3">
+        Guida operativa per accogliere atleti, tecnici e turisti da 26 Paesi del Mediterraneo. Pratiche halal-friendly, opzioni veg, formazione del personale e molto altro.
+      </p>
+      <div class="hero-ctas anim anim-d4">
+        <a href="#overview" class="btn btn-gold">Esplora il toolkit ↓</a>
+        <a href="#corsi" class="btn btn-outline">Iscriviti ai corsi</a>
+      </div>
+    </div>
+    <div class="hero-stats anim anim-d3">
+      <div class="stat-card">
+        <div class="stat-tag">Evento</div>
+        <div class="stat-number">XX</div>
+        <div class="stat-label">Edizione dei Giochi del Mediterraneo — la più grande manifestazione multisportiva del Mediterraneo</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">26</div>
+        <div class="stat-label">Nazioni partecipanti con esigenze alimentari diverse</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">90'</div>
+        <div class="stat-label">Durata dei corsi gratuiti di formazione Halal-Friendly</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="wave-divider">
+  <svg viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,30 C360,60 1080,0 1440,30 L1440,60 L0,60 Z" fill="#f8f4ec"/>
+  </svg>
+</div>
+
+<!-- OVERVIEW -->
+<section id="overview">
+  <div class="container">
+    <div class="section-label">Panoramica</div>
+    <h2 class="section-title">Tutto quello che serve<br/>in un solo portale</h2>
+    <p class="section-desc">Sei un ristoratore, un barista, un pasticcere o un albergatore di Taranto? Questa guida operativa ti prepara ad accogliere al meglio gli ospiti internazionali.</p>
+    <div class="overview-grid">
+      <a class="topic-card" href="#halal">
+        <div class="topic-icon-wrap">🥩</div>
+        <div class="topic-title">Halal-Friendly</div>
+        <div class="topic-desc">Cosa significa, cosa evitare, come comunicarlo ai clienti.</div>
+      </a>
+      <a class="topic-card" href="#contamination">
+        <div class="topic-icon-wrap">🧹</div>
+        <div class="topic-title">Contaminazione crociata</div>
+        <div class="topic-desc">Utensili, oli, padelle dedicate. La fiducia si costruisce in cucina.</div>
+      </a>
+      <a class="topic-card" href="#veg">
+        <div class="topic-icon-wrap">🥦</div>
+        <div class="topic-title">Vegetariano & Vegano</div>
+        <div class="topic-desc">Piatti completi, ricette pugliesi, alternative plant-based.</div>
+      </a>
+      <a class="topic-card" href="#orari">
+        <div class="topic-icon-wrap">🕐</div>
+        <div class="topic-title">Orari di servizio</div>
+        <div class="topic-desc">Adattarsi alle abitudini culturali degli ospiti internazionali.</div>
+      </a>
+      <a class="topic-card" href="#bevande">
+        <div class="topic-icon-wrap">🍹</div>
+        <div class="topic-title">Bevande</div>
+        <div class="topic-desc">Cocktail analcolici, latte di mandorla, tè alla menta e molto altro.</div>
+      </a>
+      <a class="topic-card" href="#personale">
+        <div class="topic-icon-wrap">👨‍🍳</div>
+        <div class="topic-title">Personale formato</div>
+        <div class="topic-desc">Cosa saper dire, come rispondere, frasi utili in inglese.</div>
+      </a>
+      <a class="topic-card" href="#corsi">
+        <div class="topic-icon-wrap">🎓</div>
+        <div class="topic-title">Corsi & Vetrofania</div>
+        <div class="topic-desc">Formazione gratuita FIC. Ottieni la vetrofania Halal-Friendly.</div>
+      </a>
+      <a class="topic-card" href="#checklist">
+        <div class="topic-icon-wrap">✅</div>
+        <div class="topic-title">Checklist operativa</div>
+        <div class="topic-desc">Lista pratica pre-apertura per essere pronti all'accoglienza.</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- HALAL -->
+<section id="halal">
+  <div class="container">
+    <div class="section-label" style="color:var(--gold-light)">Alimentazione</div>
+    <h2 class="section-title">Cosa significa<br/><em style="color:var(--gold-light);font-style:italic">Halal-Friendly</em></h2>
+    <p class="section-desc">Non è una certificazione religiosa: è un insieme di pratiche consapevoli per accogliere con rispetto e cura i tuoi ospiti.</p>
+
+    <div class="halal-grid">
+      <div class="halal-card">
+        <div class="halal-card-icon">🚫</div>
+        <h3>Niente maiale né derivati</h3>
+        <p>Evitare qualsiasi prodotto a base di suino: prosciutto, pancetta, strutto, gelatina di maiale. Se un ingrediente è incerto, indicarlo chiaramente nel menu o chiedere al fornitore.</p>
+      </div>
+      <div class="halal-card">
+        <div class="halal-card-icon">🍷</div>
+        <h3>Niente alcol in cucina</h3>
+        <p>L'alcol non va usato <strong style="color:var(--gold-light)">nemmeno per sfumare</strong> né come bagna per dolci. Sostituirlo con: limone, aceto, salsa di soia, birra analcolica o succo di frutta.</p>
+      </div>
+      <div class="halal-card">
+        <div class="halal-card-icon">🧁</div>
+        <h3>Pasticceria — attenzione</h3>
+        <p>Evitare strutto, vino da cucina e gelatina animale. Sostituire con margarina vegetale, succo di frutta e agar-agar. Il latte di mandorla tarantino è un'alternativa eccellente.</p>
+      </div>
+      <div class="halal-card">
+        <div class="halal-card-icon">🧀</div>
+        <h3>Formaggi: occhio al caglio</h3>
+        <p>Molti formaggi tradizionali usano caglio animale non certificato halal. Preferire ricotta (siero, non caglio animale) o la pampanella locale. Indicarlo nel menu aiuta il cliente a scegliere con fiducia.</p>
+      </div>
+      <div class="halal-card">
+        <div class="halal-card-icon">🐟</div>
+        <h3>Pesce & Frutti di mare</h3>
+        <p>Il pesce è generalmente accettato dalla quasi totalità dei clienti musulmani. I frutti di mare vanno segnalati separatamente nel menu poiché su di essi esistono interpretazioni diverse.</p>
+      </div>
+      <div class="halal-card">
+        <div class="halal-card-icon">🥩</div>
+        <h3>Carni certificate</h3>
+        <p>Se si vuole offrire carne halal, occorre approvvigionarsi da macellerie certificate. Se non disponibile, puntare su pesce, legumi e verdure: scelta sicura e valorizzante per la cucina pugliese.</p>
+      </div>
+    </div>
+
+    <div class="halal-banner">
+      <div class="halal-banner-icon">ℹ️</div>
+      <p>Queste linee guida <strong style="color:var(--gold-light)">non costituiscono una certificazione religiosa</strong>, ma un programma di formazione e accoglienza consapevole. Il messaggio corretto verso il pubblico è: <em>"Il nostro personale è formato sulle pratiche alimentari halal e la nostra cucina è attenta a queste esigenze."</em></p>
+    </div>
+  </div>
+</section>
+
+<!-- CROSS-CONTAMINATION -->
+<section id="contamination">
+  <div class="container">
+    <div class="section-label">Igiene & Sicurezza</div>
+    <h2 class="section-title">La contaminazione crociata conta</h2>
+    <p class="section-desc">Non basta usare gli ingredienti giusti: è fondamentale che non entrino in contatto con ingredienti proibiti. La fiducia del cliente si guadagna anche attraverso la cura del processo.</p>
+    <div class="steps-row">
+      <div class="step-card">
+        <div class="step-num">01</div>
+        <div class="step-icon">🔪</div>
+        <h3>Utensili separati</h3>
+        <p>Coltelli, taglieri e mestoli dedicati ai piatti halal, vegetariani e vegani. Se condivisi, lavaggio accurato prima dell'uso.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">02</div>
+        <div class="step-icon">🫙</div>
+        <h3>Nessun olio condiviso</h3>
+        <p>L'olio di frittura non va condiviso tra cibi halal/vegani e cibi non conformi. Mantenere vasche o padelle separate.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">03</div>
+        <div class="step-icon">🍳</div>
+        <h3>Piastre dedicate</h3>
+        <p>Piastre e padelle separate per la cottura di piatti halal e vegani. Basta un'etichetta sul manico per organizzarsi facilmente.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">04</div>
+        <div class="step-icon">🤝</div>
+        <h3>Comunicazione aperta</h3>
+        <p>Il cliente deve potersi fidare. Comunicare chiaramente le pratiche adottate, senza esagerazioni e senza false promesse.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ORARI -->
+<section id="orari">
+  <div class="container">
+    <div class="section-label">Operatività</div>
+    <h2 class="section-title">Orari di servizio consigliati</h2>
+    <p class="section-desc">Le abitudini dei pasti degli ospiti mediterranei differiscono dalla nostra tradizione. Adattarsi è semplice e porta vantaggi concreti per il tuo locale.</p>
+    <div class="orari-layout">
+      <div class="orari-visual">
+        <div class="orario-item">
+          <div class="orario-icon">🌞</div>
+          <div>
+            <div class="orario-time">dalle 12:00</div>
+            <div class="orario-label">Pranzo — apertura cucina consigliata</div>
+          </div>
+        </div>
+        <div class="orario-item">
+          <div class="orario-icon">🌆</div>
+          <div>
+            <div class="orario-time">dalle 18:30</div>
+            <div class="orario-label">Cena — apertura serale anticipata</div>
+          </div>
+        </div>
+        <div class="orario-item">
+          <div class="orario-icon">🌙</div>
+          <div>
+            <div class="orario-time">21:30 – 22:30</div>
+            <div class="orario-label">Spuntini serali — piatti leggeri e veloci</div>
+          </div>
+        </div>
+        <p style="font-size:0.8rem;color:var(--text-light);font-style:italic;padding-left:0.5rem">
+          Nota: gli orari serali rispondono ad abitudini culturali consolidate, non a cene post-evento.
+        </p>
+      </div>
+      <div class="orari-note">
+        <h3>Come adattarsi facilmente</h3>
+        <ul>
+          <li>Preparare i piatti chiave in anticipo per servire rapidamente</li>
+          <li>Tenere a disposizione piatti freddi o semplici per richieste last-minute</li>
+          <li>Proporre piccole porzioni e stuzzichini per gli spuntini serali</li>
+          <li>Comunicare chiaramente gli orari di servizio — anche in inglese — su menu, vetrina e social</li>
+          <li>Formare il personale sulle risposte alle domande frequenti degli ospiti internazionali</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VEG -->
+<section id="veg">
+  <div class="container">
+    <div class="section-label">Inclusività a tavola</div>
+    <h2 class="section-title">Vegetariano & Vegano:<br/>una scelta intelligente</h2>
+    <p class="section-desc">Le opzioni vegetariane e vegane sono anche la risposta più semplice per chi non trova carne halal disponibile. La cucina pugliese è straordinariamente ricca in questo senso.</p>
+    <div class="veg-grid">
+      <div class="veg-card">
+        <span class="veg-card-icon">🫘</span>
+        <h3>Piatti completi, non contorni</h3>
+        <p>Fave e cicorie, purè di ceci, pasta e fagioli, orecchiette con cime di rapa. Sono pasti a tutti gli effetti, non semplici accompagnamenti. Inserirli come "primi" o "piatti unici" nel menu.</p>
+      </div>
+      <div class="veg-card">
+        <span class="veg-card-icon">🌾</span>
+        <h3>Legumi, cereali, verdure</h3>
+        <p>La dieta mediterranea pugliese è naturalmente ricca di proteine vegetali. Cicerchie, lenticchie, farro e grano duro sono ingredienti storici con grande appeal internazionale.</p>
+      </div>
+      <div class="veg-card">
+        <span class="veg-card-icon">🥛</span>
+        <h3>Latte di mandorla tarantino</h3>
+        <p>Il latte di mandorla è un prodotto tipico di eccellenza. Valorizzarlo nelle bevande, nei dessert e nelle preparazioni dolci è un modo autentico di accogliere ospiti vegani e halal.</p>
+      </div>
+      <div class="veg-card">
+        <span class="veg-card-icon">🧆</span>
+        <h3>Alternative plant-based</h3>
+        <p>Tofu, tempeh e seitan sono facilmente reperibili e si abbinano bene agli ingredienti locali. Anche il mosto cotto e l'agar-agar permettono dessert vegani tradizionali.</p>
+      </div>
+    </div>
+
+    <!-- Vegano box -->
+    <div style="margin-top:2.5rem;background:var(--white);border-radius:16px;padding:2.5rem;border:1px solid rgba(107,143,113,0.2)">
+      <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.5rem;color:var(--navy);margin-bottom:1rem">🌱 Cosa vuol dire vegano?</h3>
+      <p style="font-size:0.88rem;color:var(--text-mid);margin-bottom:1.25rem;line-height:1.65">Oltre a non consumare carne e pesce, il vegano esclude anche <strong>uova, derivati del latte e miele</strong>. I criteri per la pasticceria vegana e per quella halal sono in larga parte coincidenti.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:0.5rem">
+        <span class="pill">✓ Frutta fresca e secca</span>
+        <span class="pill">✓ Latte vegetale (mandorla, soia, avena)</span>
+        <span class="pill">✓ Panna e yogurt vegetale</span>
+        <span class="pill">✓ Mosto cotto</span>
+        <span class="pill">✓ Agar-agar (al posto della gelatina)</span>
+        <span class="pill">✓ Tofu e tempeh</span>
+        <span class="pill pill-red">✗ Uova</span>
+        <span class="pill pill-red">✗ Latte e derivati</span>
+        <span class="pill pill-red">✗ Miele</span>
+        <span class="pill pill-red">✗ Gelatina animale</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BEVANDE -->
+<section id="bevande">
+  <div class="container">
+    <div class="section-label" style="color:var(--sage-light)">Bar & Bevande</div>
+    <h2 class="section-title">Le bevande<br/><em style="color:var(--sage-light);font-style:italic">fanno la differenza</em></h2>
+    <p class="section-desc">Un bar o un pub attrezzato con una carta bevande analcoliche di qualità attrae una clientela internazionale numerosa e fidelizzata.</p>
+    <div class="bev-grid">
+      <div class="bev-card">
+        <div class="bev-icon">🍋</div>
+        <h3>Limonate & Tè alla menta</h3>
+        <p>Bevande tipiche della tradizione mediterranea, con alto valore di comfort per gli ospiti. Anche il tè al gelsomino o all'ibisco sono apprezzatissimi.</p>
+      </div>
+      <div class="bev-card">
+        <div class="bev-icon">🥭</div>
+        <h3>Succhi freschi</h3>
+        <p>Succhi di frutta freschi, anche abbinati a spezie locali (zenzero, cannella, cardamomo). Nessun additivo alcolico.</p>
+      </div>
+      <div class="bev-card">
+        <div class="bev-icon">🍹</div>
+        <h3>Cocktail analcolici</h3>
+        <p>Virgin mojito, spritz analcolico, mocktail a base di agrumi e mandorle. Presentarli con cura nella carta, non come "opzione di serie B".</p>
+      </div>
+      <div class="bev-card">
+        <div class="bev-icon">🫐</div>
+        <h3>Acque aromatizzate</h3>
+        <p>Acque minerali infuse con cetriolo, menta, agrumi o frutta di stagione. Economiche, eleganti e apprezzate da tutti gli ospiti.</p>
+      </div>
+      <div class="bev-card">
+        <div class="bev-icon">🥛</div>
+        <h3>Latte di mandorla</h3>
+        <p>Prodotto tipico tarantino di eccellenza. Servirlo freddo, caldo o come base di bevande è un'opportunità di marketing territoriale unica.</p>
+      </div>
+      <div class="bev-card">
+        <div class="bev-icon">☕</div>
+        <h3>Caffè & Alternative</h3>
+        <p>Offrire versioni di caffè con latte vegetale (soia, mandorla, avena). Il caffè espresso di per sé è già halal-friendly e vegan.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PERSONALE -->
+<section id="personale">
+  <div class="container">
+    <div class="section-label">Formazione</div>
+    <h2 class="section-title">Personale formato:<br/>il vero valore aggiunto</h2>
+    <p class="section-desc">Un cameriere o un barista capace di rispondere con sicurezza alle domande alimentari degli ospiti vale più di qualsiasi certificazione appesa al muro.</p>
+    <div class="staff-layout">
+      <div class="staff-list">
+        <div class="staff-item">
+          <div class="staff-item-icon">📋</div>
+          <div>
+            <h4>Conoscenza degli ingredienti</h4>
+            <p>Saper riconoscere gli ingredienti critici (maiale, alcol, gelatina animale, caglio) nei piatti del proprio menu.</p>
+          </div>
+        </div>
+        <div class="staff-item">
+          <div class="staff-item-icon">🌍</div>
+          <div>
+            <h4>Frasi essenziali in inglese</h4>
+            <p>"This dish contains no pork." · "This is alcohol-free." · "I'll check with the kitchen for you." · "This is vegetarian / vegan."</p>
+          </div>
+        </div>
+        <div class="staff-item">
+          <div class="staff-item-icon">🔒</div>
+          <div>
+            <h4>Come rispondere in sicurezza</h4>
+            <p>Se non si è certi di una risposta: <em>"Verifico con la cucina"</em> è la risposta giusta. Mai rispondere a caso o fare supposizioni.</p>
+          </div>
+        </div>
+        <div class="staff-item">
+          <div class="staff-item-icon">🗺️</div>
+          <div>
+            <h4>Sensibilità culturale</h4>
+            <p>Accogliere con rispetto le esigenze alimentari è un gesto di ospitalità, non un ostacolo. Il sorriso e la disponibilità sono il primo strumento.</p>
+          </div>
+        </div>
+      </div>
+      <div class="comm-box">
+        <h3>Cosa puoi dire pubblicamente</h3>
+        <div class="comm-item">
+          <span class="comm-tag tag-ok">✓ Corretto</span>
+          <p>"Il nostro personale è formato sulle pratiche alimentari halal e vegane."</p>
+        </div>
+        <div class="comm-item">
+          <span class="comm-tag tag-ok">✓ Corretto</span>
+          <p>"La nostra cucina è attenta alle esigenze halal, vegetariane e vegane."</p>
+        </div>
+        <div class="comm-item">
+          <span class="comm-tag tag-ok">✓ Corretto</span>
+          <p>"Offriamo piatti preparati senza alcol e senza derivati del maiale su richiesta."</p>
+        </div>
+        <div class="comm-item">
+          <span class="comm-tag tag-no">✗ Da evitare</span>
+          <p>"Siamo un ristorante halal certificato." — Non si tratta di certificazione religiosa ufficiale.</p>
+        </div>
+        <div class="comm-item">
+          <span class="comm-tag tag-no">✗ Da evitare</span>
+          <p>"Tutti i nostri piatti sono halal." — A meno di approvvigionamento interamente certificato, è un'affermazione rischiosa.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CORSI -->
+<section id="corsi">
+  <div class="container">
+    <div class="section-label" style="color:var(--gold-light)">Formazione gratuita</div>
+    <h2 class="section-title">Corsi & Vetrofania<br/><em style="color:var(--gold-light);font-style:italic">Halal-Friendly</em></h2>
+    <p class="section-desc">L'Unione Regionale Cuochi Puglia (FIC) offre corsi gratuiti da 90 minuti. Al termine, si ottiene la vetrofania ufficiale da esporre nel locale.</p>
+    <div class="corsi-layout">
+      <div class="corso-card">
+        <div class="corso-tag">Gruppo 1</div>
+        <h3>Cucina, Sala, Bar & Pub</h3>
+        <p>Corso dedicato agli operatori di cucina, sala, bar e pub. Linee guida halal-friendly, gestione del menu, comunicazione con l'ospite.</p>
+        <div class="corso-meta">
+          <div class="corso-meta-item"><span class="m-icon">📅</span><span>Lunedì <strong>16 marzo</strong> — ore 9:30–11:00</span></div>
+          <div class="corso-meta-item"><span class="m-icon">📅</span><span>Martedì <strong>17 marzo</strong> — ore 9:30–11:00</span></div>
+          <div class="corso-meta-item"><span class="m-icon">⏱️</span><span>Durata: <strong>90 minuti</strong></span></div>
+          <div class="corso-meta-item"><span class="m-icon">📍</span><span>Location: <strong>Taranto, da definire</strong></span></div>
+          <div class="corso-meta-item"><span class="m-icon">💶</span><span>Costo: <strong>GRATUITO</strong></span></div>
+        </div>
+      </div>
+      <div class="corso-card">
+        <div class="corso-tag">Gruppo 2</div>
+        <h3>Panificazione & Pasticceria</h3>
+        <p>Corso dedicato a panificatori e pasticceri. Ingredienti da evitare, sostituti halal e vegani, valorizzazione delle tradizioni dolciarie pugliesi.</p>
+        <div class="corso-meta">
+          <div class="corso-meta-item"><span class="m-icon">📅</span><span>Giovedì <strong>16 aprile</strong> — ore 9:30–11:00</span></div>
+          <div class="corso-meta-item"><span class="m-icon">⏱️</span><span>Durata: <strong>90 minuti</strong></span></div>
+          <div class="corso-meta-item"><span class="m-icon">📍</span><span>Location: <strong>Taranto, da definire</strong></span></div>
+          <div class="corso-meta-item"><span class="m-icon">💶</span><span>Costo: <strong>GRATUITO</strong></span></div>
+        </div>
+      </div>
+      <div class="vetrofania-box">
+        <div class="vetrofania-icon">🏅</div>
+        <div>
+          <h3>Vetrofania Halal-Friendly + Attestato</h3>
+          <p>Completando il corso con firma obbligatoria, il tuo esercizio commerciale riceve la vetrofania ufficiale <strong style="color:var(--gold-light)">Halal-Friendly</strong> da esporre in vetrina — e l'attestato di partecipazione. In omaggio: 2 ricette esclusive con ingredienti tipici tarantini create per i Giochi del Mediterraneo (una da asporto, una da tavola).</p>
+          <div class="vetrofania-reqs">
+            <span class="req-pill">Frequenza obbligatoria</span>
+            <span class="req-pill">Firma di presenza</span>
+            <span class="req-pill">Attestato rilasciato da FIC Puglia</span>
+            <span class="req-pill">2 ricette tarantine in omaggio</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Festività -->
+    <div style="margin-top:2.5rem;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:2rem">
+      <h4 style="font-family:'Cormorant Garamond',serif;font-size:1.25rem;color:var(--gold-light);margin-bottom:1rem">📌 Festività 2026 — Date da escludere</h4>
+      <div style="display:flex;flex-wrap:wrap;gap:0.6rem">
+        <span class="req-pill" style="background:rgba(199,91,42,0.15);border-color:rgba(199,91,42,0.3);color:#e8876a">Dom 29 marzo</span>
+        <span class="req-pill" style="background:rgba(199,91,42,0.15);border-color:rgba(199,91,42,0.3);color:#e8876a">Giovedì Santo 2 apr</span>
+        <span class="req-pill" style="background:rgba(199,91,42,0.15);border-color:rgba(199,91,42,0.3);color:#e8876a">Venerdì Santo 3 apr</span>
+        <span class="req-pill" style="background:rgba(199,91,42,0.15);border-color:rgba(199,91,42,0.3);color:#e8876a">Sabato Santo 4 apr</span>
+        <span class="req-pill" style="background:rgba(199,91,42,0.15);border-color:rgba(199,91,42,0.3);color:#e8876a">Pasqua 5 apr</span>
+        <span class="req-pill" style="background:rgba(199,91,42,0.15);border-color:rgba(199,91,42,0.3);color:#e8876a">Pasquetta 6 apr</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CHECKLIST -->
+<section id="checklist">
+  <div class="container">
+    <div class="section-label">Strumento operativo</div>
+    <h2 class="section-title">Checklist operativa<br/>pre-accoglienza</h2>
+    <p class="section-desc">Usa questa lista per verificare che il tuo locale sia pronto. Stampala, appendila in cucina, condividila con il tuo team.</p>
+    <div class="checklist-grid">
+      <div class="checklist-group">
+        <h3><span>🍽️</span>Menu & Ingredienti</h3>
+        <ul class="check-list">
+          <li class="check-item">Identificare i piatti già halal-friendly nel menu esistente</li>
+          <li class="check-item">Segnare chiaramente i piatti con maiale, alcol o gelatina animale</li>
+          <li class="check-item">Inserire almeno un piatto vegetariano completo</li>
+          <li class="check-item">Inserire almeno un piatto vegano completo</li>
+          <li class="check-item">Revisionare i dessert: strutto, alcol, gelatina</li>
+          <li class="check-item">Preparare versione del menu in inglese (almeno per i piatti principali)</li>
+          <li class="check-item">Indicare gli allergeni chiaramente</li>
+        </ul>
+      </div>
+      <div class="checklist-group">
+        <h3><span>🧹</span>Cucina & Processi</h3>
+        <ul class="check-list">
+          <li class="check-item">Identificare utensili da dedicare ai piatti halal/vegan</li>
+          <li class="check-item">Separare gli oli di frittura</li>
+          <li class="check-item">Etichettare le padelle/piastre dedicate</li>
+          <li class="check-item">Verificare che i sostituti dell'alcol (limone, aceto) siano disponibili</li>
+          <li class="check-item">Controllare gli ingredienti dei prodotti semi-lavorati (gelatine, preparati)</li>
+          <li class="check-item">Comunicare al team le nuove procedure</li>
+        </ul>
+      </div>
+      <div class="checklist-group">
+        <h3><span>👥</span>Personale & Comunicazione</h3>
+        <ul class="check-list">
+          <li class="check-item">Iscriversi al corso di formazione FIC (gratuito)</li>
+          <li class="check-item">Formare tutto il personale di sala sugli ingredienti critici</li>
+          <li class="check-item">Stampare le frasi chiave in inglese per la sala</li>
+          <li class="check-item">Addestrare il team alla risposta "Verifico con la cucina"</li>
+          <li class="check-item">Ripassare gli orari di servizio consigliati con il personale</li>
+        </ul>
+      </div>
+      <div class="checklist-group">
+        <h3><span>🍹</span>Bar & Bevande</h3>
+        <ul class="check-list">
+          <li class="check-item">Aggiungere almeno 3 cocktail analcolici alla carta</li>
+          <li class="check-item">Includere latte di mandorla tra le alternative al latte</li>
+          <li class="check-item">Preparare una selezione di tè e infusi</li>
+          <li class="check-item">Offrire succhi di frutta freschi o di qualità</li>
+          <li class="check-item">Comunicare la disponibilità di bevande analcoliche nella vetrina/menu</li>
+        </ul>
+      </div>
+      <div class="checklist-group">
+        <h3><span>🎓</span>Certificazioni & Vetrina</h3>
+        <ul class="check-list">
+          <li class="check-item">Completare il corso FIC con firma obbligatoria</li>
+          <li class="check-item">Esporre la vetrofania Halal-Friendly in vetrina</li>
+          <li class="check-item">Comunicare sui social la preparazione ai Giochi</li>
+          <li class="check-item">Stampare e appendere gli orari di servizio all'ingresso</li>
+          <li class="check-item">Aggiornare Google Maps / TripAdvisor con le opzioni disponibili</li>
+        </ul>
+      </div>
+      <div class="checklist-group">
+        <h3><span>📅</span>Gestione Operativa</h3>
+        <ul class="check-list">
+          <li class="check-item">Preparare i piatti chiave in anticipo per i servizi di punta</li>
+          <li class="check-item">Mantenere sempre disponibili piatti freddi per richieste last-minute</li>
+          <li class="check-item">Organizzare piccoli piatti per la fascia 21:30–22:30</li>
+          <li class="check-item">Comunicare eventuali indisponibilità di piatti in modo chiaro</li>
+          <li class="check-item">Raccogliere feedback dagli ospiti internazionali</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <h3>Toolkit HO.RE.CA.<br/>Taranto 2026</h3>
+        <p>Portale informativo del Gruppo di Lavoro Turismo — Comune di Taranto, in supporto alla preparazione per i XX Giochi del Mediterraneo. Contenuti elaborati in collaborazione con FIC Unione Regionale Cuochi Puglia.</p>
+        <div class="footer-badges">
+          <span class="f-badge">Comune di Taranto</span>
+          <span class="f-badge">FIC Puglia</span>
+          <span class="f-badge">Taranto 2026</span>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Sezioni</h4>
+        <ul>
+          <li><a href="#halal">Guida Halal-Friendly</a></li>
+          <li><a href="#contamination">Contaminazione crociata</a></li>
+          <li><a href="#veg">Vegetariano & Vegano</a></li>
+          <li><a href="#orari">Orari di servizio</a></li>
+          <li><a href="#bevande">Bevande analcoliche</a></li>
+          <li><a href="#personale">Personale</a></li>
+          <li><a href="#corsi">Corsi gratuiti</a></li>
+          <li><a href="#checklist">Checklist</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Info corsi</h4>
+        <ul>
+          <li><a href="#">Contatta il Comune di Taranto</a></li>
+          <li><a href="#">FIC Unione Cuochi Puglia</a></li>
+          <li><a href="https://taranto2026.it" target="_blank">taranto2026.it</a></li>
+        </ul>
+        <div style="margin-top:2rem">
+          <h4>Contatti & Iscrizioni</h4>
+          <p style="font-size:0.82rem;color:rgba(255,255,255,0.45);line-height:1.6;margin-top:0.5rem">Per informazioni e iscrizioni ai corsi gratuiti, contattare il referente del Comune di Taranto — Ufficio Turismo.</p>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 Comune di Taranto — Gruppo di Lavoro Turismo. Tutti i diritti riservati.</p>
+      <p style="font-style:italic;color:rgba(255,255,255,0.2)">XX Giochi del Mediterraneo · Taranto 2026</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Scroll progress bar
+  window.addEventListener('scroll', () => {
+    const total = document.body.scrollHeight - window.innerHeight;
+    const progress = (window.scrollY / total) * 100;
+    document.getElementById('scroll-progress').style.width = progress + '%';
+  });
+
+  // Smooth nav active state
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navLinks.forEach(l => {
+          l.style.color = '';
+          l.style.background = '';
+          if (l.getAttribute('href') === '#' + entry.target.id) {
+            l.style.color = 'var(--gold)';
+            l.style.background = 'rgba(201,162,39,0.1)';
+          }
+        });
+      }
+    });
+  }, { threshold: 0.4 });
+  sections.forEach(s => observer.observe(s));
+  // Intersection animation for cards
+  const animEls = document.querySelectorAll('.topic-card, .halal-card, .step-card, .veg-card, .bev-card, .staff-item, .corso-card, .checklist-group, .orario-item');
+  const cardObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+        cardObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+
+  animEls.forEach((el, i) => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(24px)';
+    el.style.transition = `opacity 0.5s ease ${(i % 4) * 0.08}s, transform 0.5s ease ${(i % 4) * 0.08}s`;
+    cardObserver.observe(el);
+  });
+</script>
+</body>
+</html>
